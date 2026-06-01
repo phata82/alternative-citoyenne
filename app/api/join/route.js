@@ -1,5 +1,5 @@
-import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
 export async function POST(req) {
   try {
@@ -14,54 +14,51 @@ export async function POST(req) {
       );
     }
 
-    // Prepare credentials for Google Sheets
-    // The private key needs to have escaped newlines replaced
-    const privateKey = process.env.GOOGLE_PRIVATE_KEY
-      ? process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
-      : undefined;
-
-    if (!process.env.GOOGLE_CLIENT_EMAIL || !privateKey || !process.env.GOOGLE_SHEET_ID) {
-      console.error("Missing Google credentials in environment variables");
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.RECEIVER_EMAIL) {
+      console.error("Missing SMTP credentials in environment variables");
       return NextResponse.json(
-        { error: 'Configuration du serveur manquante (Google Sheets).' },
+        { error: 'Configuration du serveur email manquante.' },
         { status: 500 }
       );
     }
 
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: process.env.GOOGLE_CLIENT_EMAIL,
-        private_key: privateKey,
-      },
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-    });
-
-    const sheets = google.sheets({ version: 'v4', auth });
-
-    // Append to sheet
-    const response = await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'Sheet1!A:F', // Adjust if sheet name is different
-      valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values: [
-          [
-            new Date().toISOString(), // Date d'inscription
-            firstname,
-            lastname,
-            email,
-            phone || '',
-            quartier
-          ]
-        ],
+    // Configure nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      host: 'zimbra1.mail.ovh.net',
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
+
+    // Email content
+    const mailOptions = {
+      from: `"Alternative Citoyenne" <${process.env.SMTP_USER}>`,
+      to: process.env.RECEIVER_EMAIL,
+      replyTo: email,
+      subject: `Nouvelle demande d'adhésion : ${firstname} ${lastname}`,
+      html: `
+        <h2>Nouvelle demande d'adhésion via le site web</h2>
+        <p><strong>Prénom :</strong> ${firstname}</p>
+        <p><strong>Nom :</strong> ${lastname}</p>
+        <p><strong>Email :</strong> ${email}</p>
+        <p><strong>Téléphone :</strong> ${phone || 'Non renseigné'}</p>
+        <p><strong>Quartier :</strong> ${quartier}</p>
+        <br/>
+        <p><i>Cet email a été envoyé automatiquement depuis le formulaire du site Alternative Citoyenne.</i></p>
+      `,
+    };
+
+    // Send email
+    await transporter.sendMail(mailOptions);
 
     return NextResponse.json({ success: true, message: "Votre demande d'adhésion a été prise en compte avec succès. Bienvenue parmi nous !" }, { status: 200 });
   } catch (error) {
     console.error('Error in /api/join:', error);
     return NextResponse.json(
-      { error: "Une erreur s'est produite lors de l'enregistrement de votre demande." },
+      { error: "Une erreur s'est produite lors de l'envoi de votre demande." },
       { status: 500 }
     );
   }
