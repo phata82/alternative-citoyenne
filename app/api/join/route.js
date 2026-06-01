@@ -24,9 +24,9 @@ export async function POST(req) {
 
     // Configure nodemailer transporter
     const transporter = nodemailer.createTransport({
-      host: 'zimbra1.mail.ovh.net',
-      port: 587,
-      secure: false, // true for 465, false for other ports
+      host: 'ssl0.ovh.net',
+      port: 465,
+      secure: true, // true for 465, false for other ports
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
