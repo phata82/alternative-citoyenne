@@ -58,7 +58,7 @@ export async function POST(req) {
   } catch (error) {
     console.error('Error in /api/join:', error);
     return NextResponse.json(
-      { error: "Une erreur s'est produite lors de l'envoi de votre demande." },
+      { error: "Détail de l'erreur d'envoi : " + error.message },
       { status: 500 }
     );
   }
