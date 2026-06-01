@@ -139,7 +139,12 @@
                     body: JSON.stringify(data)
                 });
                 
-                const result = await response.json();
+                let result;
+                try {
+                    result = await response.json();
+                } catch(e) {
+                    throw new Error("Erreur serveur (Statut " + response.status + "). L'API n'a pas répondu correctement. Le déploiement Next.js a-t-il réussi ?");
+                }
                 
                 msgDiv.style.display = 'block';
                 if (response.ok) {
@@ -156,7 +161,7 @@
                 msgDiv.style.display = 'block';
                 msgDiv.style.backgroundColor = '#f8d7da';
                 msgDiv.style.color = '#721c24';
-                msgDiv.innerText = "Erreur de connexion. Veuillez réessayer.";
+                msgDiv.innerText = "Erreur détaillée : " + error.message;
             } finally {
                 btn.disabled = false;
                 btn.innerText = 'Envoyer ma demande';
