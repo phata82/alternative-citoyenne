@@ -49,4 +49,42 @@ document.addEventListener('DOMContentLoaded', () => {
       header.style.boxShadow = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
     }
   });
+
+  // Newsletter Form Handler
+  const newsletterForm = document.getElementById('newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = newsletterForm.querySelector('input[name="email"]').value;
+      const btn = newsletterForm.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      
+      try {
+        btn.textContent = 'Envoi...';
+        btn.disabled = true;
+        
+        const response = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+        
+        const result = await response.json();
+        if (response.ok) {
+          alert('Merci pour votre inscription à la newsletter !');
+          newsletterForm.reset();
+        } else {
+          alert(result.error || 'Une erreur est survenue.');
+        }
+      } catch (error) {
+        console.error('Newsletter error:', error);
+        alert('Une erreur est survenue lors de l\\'inscription.');
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    });
+  }
 });
