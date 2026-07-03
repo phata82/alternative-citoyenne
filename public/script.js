@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } catch (error) {
         console.error('Newsletter error:', error);
-        alert('Une erreur est survenue lors de l\\'inscription.');
+        alert("Une erreur est survenue lors de l'inscription.");
       } finally {
         btn.textContent = originalText;
         btn.disabled = false;
