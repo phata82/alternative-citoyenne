@@ -376,8 +376,8 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-  h1 { font-size: 2.5rem; text-align: center; }
-  h2, .section-title { font-size: 1.8rem; word-wrap: break-word; hyphens: auto; text-align: center; }
+  h1 { font-size: 2.5rem; text-align: center !important; }
+  h2, .section-title { font-size: 1.8rem; word-wrap: break-word; hyphens: auto; text-align: center !important; }
   
   .menu-toggle { display: block; }
   
@@ -409,5 +409,20 @@ footer {
   
   .hero-overlay {
     background: linear-gradient(180deg, rgba(10,20,110,0.8) 0%, rgba(10,20,110,0.7) 100%);
+  }
+
+  .py-16 { padding-top: 2rem; padding-bottom: 2rem; }
+  .py-20 { padding-top: 3rem; padding-bottom: 3rem; }
+  
+  .container { padding: 0 1rem; }
+  
+  /* Reduce flex gaps on mobile */
+  div[style*="gap: 4rem"] {
+    gap: 2rem !important;
+  }
+  
+  /* Reduce padding on form side/info side boxes on mobile */
+  div[style*="padding: 3rem"] {
+    padding: 1.5rem !important;
   }
 }
