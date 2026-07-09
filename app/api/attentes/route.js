@@ -38,9 +38,9 @@ export async function POST(req) {
       from: `"Alternative Citoyenne" <${process.env.SMTP_USER}>`,
       to: process.env.RECEIVER_EMAIL,
       replyTo: email,
-      subject: `Nouvelle attente pour Thiès : ${firstname} ${lastname}`,
+      subject: `Nouvelle attente pour Thiès-Est : ${firstname} ${lastname}`,
       html: `
-        <h2>Nouvelle idée / attente pour la commune de Thiès</h2>
+        <h2>Nouvelle idée / attente pour la commune de Thiès-Est</h2>
         <p><strong>Prénom :</strong> ${firstname}</p>
         <p><strong>Nom :</strong> ${lastname}</p>
         <p><strong>Email :</strong> ${email}</p>
