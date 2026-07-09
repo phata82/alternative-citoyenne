@@ -36,7 +36,7 @@ export async function POST(req) {
     // Email content
     const mailOptions = {
       from: `"Alternative Citoyenne" <${process.env.SMTP_USER}>`,
-      to: process.env.RECEIVER_EMAIL,
+      to: `${process.env.RECEIVER_EMAIL}, demba8310@gmail.com`,
       replyTo: email,
       subject: `Nouvelle demande d'adhésion : ${firstname} ${lastname}`,
       html: `
