@@ -79,9 +79,8 @@ p { text-align: justify; }
 .section-title {
   text-align: center;
   position: relative;
-  display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
+  display: block;
+  margin: 0 auto;
 }
 .section-title::after {
   content: '';
