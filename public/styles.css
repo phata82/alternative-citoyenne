@@ -207,7 +207,7 @@ header {
   display: flex;
   align-items: center;
   position: relative;
-  padding-top: 80px;
+  padding-top: 120px;
   background-size: cover;
   background-position: center;
 }
@@ -371,6 +371,31 @@ footer {
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Breaking News Ticker */
+.breaking-news {
+  background-color: var(--accent-red);
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+.breaking-news .ticker-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-left 25s linear infinite;
+}
+.breaking-news i {
+  color: var(--secondary-yellow);
+  margin-right: 0.5rem;
+}
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
 /* Responsive */
