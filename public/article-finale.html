@@ -64,6 +64,19 @@
                     <p style="text-align: center; font-weight: 700; color: var(--primary-blue); font-size: 1.25rem;">And Sopi  Thiès — Pour une véritable gestion de proximité</p>
                 </div>
                 
+                    <div class="share-container">
+                        <span class="share-label">Partager cet article :</span>
+                        <a href="#" class="btn-share btn-whatsapp" onclick="window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(document.title + ' ' + window.location.href)); return false;">
+                            <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                        </a>
+                        <a href="#" class="btn-share btn-facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href)); return false;">
+                            <i class="fa-brands fa-facebook-f"></i> Facebook
+                        </a>
+                        <a href="#" class="btn-share btn-linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(window.location.href) + '&title=' + encodeURIComponent(document.title)); return false;">
+                            <i class="fa-brands fa-linkedin-in"></i> LinkedIn
+                        </a>
+                    </div>
+                
                 <div style="margin-top: 4rem; text-align: center;">
                     <a href="news.html" class="btn btn-outline"><i class="fa-solid fa-arrow-left"></i> Retour aux actualités</a>
                 </div>

@@ -469,3 +469,45 @@ footer {
   border: 0;
 }
 
+/* Share Buttons */
+.share-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.share-label {
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin-right: 0.5rem;
+}
+
+.btn-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-full);
+  color: white;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-share:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+  box-shadow: var(--shadow-md);
+  color: white;
+}
+
+.btn-whatsapp { background-color: #25D366; }
+.btn-facebook { background-color: #1877F2; }
+.btn-linkedin { background-color: #0A66C2; }
+
